@@ -22,7 +22,6 @@ from sklearn import cluster
 
 
 class DMPic:
-    def __init__(self):
     @staticmethod
     def GetCapture( stax, stay, endx, endy):
         w = endx - stax
