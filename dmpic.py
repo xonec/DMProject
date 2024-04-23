@@ -21,9 +21,8 @@ import cv2
 from sklearn import cluster
 
 
-class TuSe:
+class DMPic:
     def __init__(self):
-        print('欢迎使用')
 
     def GetCapture(self, stax, stay, endx, endy):
         w = endx - stax
