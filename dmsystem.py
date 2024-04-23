@@ -368,3 +368,10 @@ class DMSystem():
             is_ok = DMSystem.winuser32.SetWindowLongA(67076,-20,0x40000)
         if not is_ok:
             raise Exception('call ShowTaskBarIcon failed')
+    @staticmethod
+    def get_graphics_info():
+        cmd = 'wmic path win32_videocontroller get name'
+        output = subprocess.check_output(cmd, shell=True).decode('utf-8')
+        lines = output.strip().split('\n')
+        data = [line.strip() for line in lines[1:]]  # 获取显卡名称数据
+        return "|".join(data)
