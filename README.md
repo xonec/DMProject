@@ -144,7 +144,6 @@
 * [x] SetWindowState 设置窗口的状态(实现不完整)
 * [x] SetWindowText 设置窗口的标题
 * [x] SetWindowTransparent 设置窗口的透明度
-### 内存
 ### 图色 (dmpic.py)
 * [x] GetCapture(stax, stay, endx, endy)：截取屏幕指定区域的图像并返回。
 * [x] FindPic(x1, y1, x2, y2, path, thd=0.9, type=1)：在指定区域内查找指定图片，并返回图片中心坐标。
@@ -166,5 +165,6 @@
 * [x] OcrFix(input_dict, size=20)：对OCR识别结果进行合并处理。
 * [x] GetOcr(data)：对OCR识别结果进行整理并返回。
 * [x] FindPics_TM(des)：在全屏幕范围内查找多个图片，并返回匹配图片的中心坐标。
+### 内存
 ### (待定)
 
