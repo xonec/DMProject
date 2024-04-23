@@ -104,7 +104,7 @@
 * [x] WaitKey 等待指定的按键按下 (前台,不是后台)
 * [x] WheelDown 滚轮向下滚
 * [x] WheelUp 滚轮向上滚
-### 窗口
+### 窗口(dmwindows.py)
 * [x] ClientToScreen 把窗口坐标转换为屏幕坐标 
 * [x] EnumProcess 根据指定进程名,枚举系统中符合条件的进程PID,并且按照进程打开顺序排序.
 * [x] EnumWindow 根据指定条件,枚举系统中符合条件的窗口(实现不完整)
@@ -144,6 +144,6 @@
 * [x] SetWindowText 设置窗口的标题
 * [x] SetWindowTransparent 设置窗口的透明度
 ### 内存
-### 图色
+### 图色 (dmpic.py)
 ### (待定)
 
