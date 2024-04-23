@@ -146,5 +146,25 @@
 * [x] SetWindowTransparent 设置窗口的透明度
 ### 内存
 ### 图色 (dmpic.py)
+* [x] GetCapture(stax, stay, endx, endy)：截取屏幕指定区域的图像并返回。
+* [x] FindPic(x1, y1, x2, y2, path, thd=0.9, type=1)：在指定区域内查找指定图片，并返回图片中心坐标。
+* [x] FindPics(des)：在整个屏幕上查找多个图片，并返回各图片中心坐标。
+* [x] Hex_to_Rgb(hex)：将十六进制颜色转换为RGB颜色。
+* [x] CmpColor(x, y, color, sim)：比较给定坐标处的颜色与目标颜色是否相似。
+* [x] FindColor(x1, y1, x2, y2, des, sim)：在指定区域内查找指定颜色，并返回匹配颜色的坐标。
+* [x] FindMultColor(stax, stay, endx, endy, des)：在指定区域内查找多种颜色，并返回匹配颜色的坐标。
+* [x] FindPicEx(x1, y1, x2, y2, path, thd=0.9, MIN_MATCH_COUNT=8)：在全分辨率下查找指定图片，并返回图片中心坐标。
+* [x] _FilterRec(res, loc)：对同一对象的多个框按位置聚类后，选出置信度最大的一个点进行保留。
+* [x] FindMultPic(x1, y1, x2, y2, path, thd=0.8)：在指定区域内查找多个不同图片，并返回每个图片中心坐标。
+* [x] FindPic_TM(x1, y1, x2, y2, path, thd=0.9)：在指定区域内查找透明背景图片，并返回图片中心坐标。
+* [x] GetCaptre_TM(x1, y1, x2, y2, path, times=5)：将动态图像转换为静态图像并保存，并返回静态图像数据。
+* [x] StressShow(stax, stay, endx, endy, des, type=0)：保留选中颜色，其他设置为黑色或白色，返回处理后的图像数据。
+* [x] SetDict(path)：从文件中读取数据并生成字典格式。
+* [x] FindString(x1, y1, x2, y2, strs, color, thd, DIict)：在指定区域内查找指定字符串，并返回字符串的中心坐标。
+* [x] Ocr(x1, y1, x2, y2, des, thd, DIict)：在指定区域内进行OCR识别，返回识别结果。
+* [x] getstr(original_data)：对包含字符和坐标信息的原始数据进行分组处理。
+* [x] OcrFix(input_dict, size=20)：对OCR识别结果进行合并处理。
+* [x] GetOcr(data)：对OCR识别结果进行整理并返回。
+* [x] FindPics_TM(des)：在全屏幕范围内查找多个图片，并返回匹配图片的中心坐标。
 ### (待定)
 
