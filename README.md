@@ -1,6 +1,6 @@
 # DMProject
 用最少的依赖实现python版大漠插件
-[大漠插件v7.1904帮助文档](https://lanzouw.com/icguueh)
+* [大漠插件v7.1904帮助文档](https://lanzouw.com/icguueh)
 * 一切开发旨在学习，请勿用于非法用途
 ## API实现情况
 ### 系统(dmsystem.py)
