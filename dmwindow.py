@@ -16,6 +16,8 @@
 
 import ctypes.wintypes
 import ctypes
+import win32gui
+import win32process
 
 class DMWindow():
     winKernel32 = ctypes.windll.kernel32
@@ -526,3 +528,112 @@ class DMWindow():
         if len(martchVec) == 0:
             raise Exception('call EnumWindow failed:not found any window')
         return ','.join([str(i) for i in martchVec])
+    @staticmethod
+    def EnumWindowByProcess(process_name, title, class_name, filter):
+        def callback(hwnd, windows):
+            if (filter & 1) and title.lower() not in win32gui.GetWindowText(hwnd).lower():
+                return True
+            if (filter & 2) and class_name.lower() not in win32gui.GetClassName(hwnd).lower():
+                return True
+            _, pid = win32process.GetWindowThreadProcessId(hwnd)
+            if (filter & 4) and pid != process_pid:
+                return True
+            if (filter & 8) and win32gui.GetParent(hwnd) != 0:
+                return True
+            if (filter & 16) and not win32gui.IsWindowVisible(hwnd):
+                return True
+            windows.append(hwnd)
+            return True
+    
+        windows = []
+        process_pid = None
+    
+        # 获取指定进程名对应的进程ID
+        for pid, pname in win32process.EnumProcesses():
+            if pname.lower() == process_name.lower():
+                process_pid = pid
+                break
+    
+        if process_pid is not None:
+            # 枚举所有窗口，并筛选出满足条件的窗口
+            win32gui.EnumWindows(callback, windows)
+    
+        return ",".join(map(str, windows))
+    @staticmethod
+    def EnumWindowByProcessId(pid, title, class_name, filter):
+        def callback(hwnd, windows):
+            if (filter & 1) and title.lower() not in win32gui.GetWindowText(hwnd).lower():
+                return True
+            if (filter & 2) and class_name.lower() not in win32gui.GetClassName(hwnd).lower():
+                return True
+            if (filter & 8) and win32gui.GetParent(hwnd) != 0:
+                return True
+            if (filter & 16) and not win32gui.IsWindowVisible(hwnd):
+                return True
+            _, process_id = win32process.GetWindowThreadProcessId(hwnd)
+            if process_id == pid:
+                windows.append(hwnd)
+            return True
+    
+        windows = []
+        
+        # 枚举所有窗口，并筛选出满足条件的窗口
+        win32gui.EnumWindows(callback, windows)
+    
+        return ",".join(map(str, windows))
+    @staticmethod
+    def EnumWindowSuper(spec1, flag1, type1, spec2, flag2, type2, sort):
+        def callback(hwnd, windows):
+            def match_spec(spec, flag, type, hwnd):
+                if flag == 0: # 标题
+                    target_str = win32gui.GetWindowText(hwnd)
+                elif flag == 1: # 程序名字
+                    _, pid = win32process.GetWindowThreadProcessId(hwnd)
+                    target_str = psutil.Process(pid).name()
+                elif flag == 2: # 类名
+                    target_str = win32gui.GetClassName(hwnd)
+                # 添加更多flag对应的处理方式
+                
+                if type == 0: # 精确判断
+                    return target_str == spec
+                elif type == 1: # 模糊判断
+                    return spec.lower() in target_str.lower()
+                
+            if match_spec(spec1, flag1, type1, hwnd) and match_spec(spec2, flag2, type2, hwnd):
+                windows.append(hwnd)
+            return True
+        windows = []
+        win32gui.EnumWindows(callback, windows)
+        if sort == 1:
+            windows.sort()
+        return ",".join(map(str, windows))
+    @staticmethod
+    def FindWindowSuper(spec1, flag1, type1, spec2, flag2, type2):
+        def callback(hwnd, windows):
+            def match_spec(spec, flag, type, hwnd):
+                if flag == 0: # 标题
+                    target_str = win32gui.GetWindowText(hwnd)
+                elif flag == 1: # 程序名字
+                    _, pid = win32process.GetWindowThreadProcessId(hwnd)
+                    target_str = psutil.Process(pid).name()
+                elif flag == 2: # 类名
+                    target_str = win32gui.GetClassName(hwnd)
+                # 添加更多flag对应的处理方式
+                
+                if type == 0: # 精确判断
+                    return target_str == spec
+                elif type == 1: # 模糊判断
+                    return spec.lower() in target_str.lower()
+                
+            if match_spec(spec1, flag1, type1, hwnd) and match_spec(spec2, flag2, type2, hwnd):
+                windows.append(hwnd)
+            return True
+        
+        windows = []
+        
+        win32gui.EnumWindows(callback, windows)
+        
+        if windows:
+            return windows[0] # 返回第一个匹配的窗口句柄
+        else:
+            return 0
